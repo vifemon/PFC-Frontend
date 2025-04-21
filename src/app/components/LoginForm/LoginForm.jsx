@@ -1,6 +1,7 @@
 import { useState } from "react";
 import InputField from "../InputField/InputField";
 import Button from "../Button/Button";
+import { loginValidate } from "../../service/usersService";
 
 function LoginForm() {
     const [form, setForm] = useState({
@@ -14,10 +15,10 @@ function LoginForm() {
     const validarLogin = () => {
         const erroresTemp = {};
 
-        if (!form.usuario.length > 0) erroresTemp.usuario = "Debes introducir usuario";
-        if (!form.password.length > 0) erroresTemp.password = "Debes introducir una contraseña";
+        if (!form.usuario) erroresTemp.usuario = "Debes introducir usuario";
+        if (!form.password) erroresTemp.password = "Debes introducir una contraseña";
 
-        setError(erroresTem);
+        setError(erroresTemp);
         return Object.keys(erroresTemp).length === 0;
 
     }
@@ -25,7 +26,28 @@ function LoginForm() {
         setForm({ ...form, [e.target.id]: e.target.value });
     };
 
-    //Falta handlesubmit i guardar el usuari en localStorage
+    const handleSubmit = async() =>{
+        if(validarLogin()){
+            try{
+                const formData = new URLSearchParams();
+                formData.append('usuario', form.usuario);
+                formData.append('password', form.password)
+
+                const res = await loginValidate(formData)
+
+                if(res.status === "success"){
+                    setLoginExito(true);
+                    sessionStorage.setItem('user', form.usuario);
+                    console.log(res)
+                }
+            }
+            catch{
+                console.log("Error a la hora de intentar el login")
+            }
+        }
+
+    }
+
     return (
         <div>
             <InputField
@@ -46,7 +68,7 @@ function LoginForm() {
             />
             <Button
             text="Login"
-            onClick={validarLogin}
+            onClick={handleSubmit}
             />
         </div>
 

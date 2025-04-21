@@ -20,7 +20,7 @@ export const apiRegistro = {
 }
 
 export const apiLogin = {
-    baseURL: "http://localhost:8080/arxius/projecte/login-validate.php",
+    baseURL: "http://localhost:8080/arxius/projecte/login-validacion.php",
     headers: {
         'Content-Type' : 'application/x-www-form-urlencoded',
 },

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import InputField from "../InputField/InputField";
-import {handleRegistro} from "../../service/handleRegistro";
+import {handleRegistro} from "../../service/usersService";
 import Button from "../Button/Button";
 
 function RegistroForm() {

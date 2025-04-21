@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import RegistroForm from './app/components/RegistroForm/RegistroForm'
 import LoginForm from './app/components/LoginForm/LoginForm'
+import ToggleReserva from './app/components/ToggleReserva/ToggleReserva'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -32,6 +33,7 @@ function App() {
       </p>
      <RegistroForm/> 
      <LoginForm/>
+     <ToggleReserva/>
     
     </>
   )
