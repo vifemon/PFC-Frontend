@@ -37,8 +37,13 @@ function LoginForm() {
 
                 if(res.status === "success"){
                     setLoginExito(true);
-                    sessionStorage.setItem('user', form.usuario);
+                    sessionStorage.setItem('usuario', form.usuario);
+                    sessionStorage.setItem('usuario_id', res.user_id)
+                    const user = sessionStorage.getItem('user')
+                    const usuario_id = sessionStorage.getItem('usuario_id')
                     console.log(res)
+                    console.log("user", user)
+                    console.log('id', usuario_id)
                 }
             }
             catch{
