@@ -60,6 +60,8 @@ function ReservaSalaForm() {
 
                 const idUsuario = sessionStorage.getItem('usuario_id')
                 if (idUsuario === null) {
+                    alert("hay que logearse o error")
+                    return;
 
                 }
 

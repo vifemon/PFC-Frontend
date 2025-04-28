@@ -1,7 +1,7 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import InputField from "../InputField/InputField"
 import Button from "../Button/Button";
-import { consultaSillas } from "../../service/bookingService";
+import { consultaSillas, reservaSillas } from "../../service/bookingService";
 
 
 function ReservaSillaForm() {
@@ -9,7 +9,11 @@ function ReservaSillaForm() {
     const [errorFecha, setErrorFecha] = useState("");
     const [franjas, setFranjas] = useState([])
     const [seleccionSillas, setSeleccionSillas] = useState({});
+    const [reservaRealizada, setReservaRealizada] = useState(false)
   
+    useEffect(() => {
+        setReservaRealizada(false);
+    }, [seleccionFecha]);
 
 
     const handleFecha = (e) => {
@@ -57,14 +61,14 @@ function ReservaSillaForm() {
         }
     }
 
-    const handleReserva = () => {
+    const handleReserva = async () => {
        
-
             try {
 
                 const idUsuario = sessionStorage.getItem('usuario_id')
                 if (idUsuario === null) {
-
+                    alert("hay que logearse o error")
+                    return;
                 }
 
                 console.log('sillas', seleccionSillas)
@@ -72,8 +76,18 @@ function ReservaSillaForm() {
                 const formReserva = new URLSearchParams;
                 formReserva.append('usuario_id', idUsuario)
                 formReserva.append('fecha', seleccionFecha)
+                formReserva.append('reservas', JSON.stringify(seleccionSillas))
 
-                
+                const res = await reservaSillas(formReserva)
+
+                if (res.success === true){
+                    setReservaRealizada(true)
+                    setSeleccionSillas({}); 
+                    setFranjas([]);   
+
+                } else {
+                    console.log(res.error)
+                }
 
 
 
@@ -133,7 +147,11 @@ function ReservaSillaForm() {
 
 
             )}
-
+             {reservaRealizada === true && (
+                <div>
+                    <h2>Reserva realizada con éxito</h2>
+                </div>
+            )}
 
         </div>
     )
