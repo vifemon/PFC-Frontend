@@ -50,11 +50,16 @@ function ReservaSalaForm() {
 
 
     const handleChange = (e) => {
-        setForm({ ...form, [e.target.id]: e.target.value });
-    }
+        const { id, value } = e.target;
+        setForm({ ...form, [id]: value });
+        setError((prev) => ({ ...prev, [id]: undefined }));
+      }
 
 
     const handleReserva = async () => {
+        setSalaOcupada(false);
+        setReservaRealizada(false);
+
         if (validarReserva()) {
             try {
 
@@ -90,7 +95,7 @@ function ReservaSalaForm() {
     return (
         <div>
             <label htmlFor="sala">Sala:</label>
-            <select id="sala" onChange={handleChange}>
+            <select id="sala" onChange={handleChange} value={form.sala}>
                 <option value="">Selecciona sala</option>
                 <option value="1">Sala 1</option>
                 <option value="2">Sala 2</option>
@@ -109,6 +114,13 @@ function ReservaSalaForm() {
             <select id="horaInicio" onChange={handleChange}>
                 <option value="">Selecciona hora inicio</option>
                 <option value="08:00">8:00</option>
+                <option value="09:00">9:00</option>
+                <option value="10:00">10:00</option>
+                <option value="11:00">11:00</option>
+                <option value="12:00">12:00</option>
+                <option value="13:00">13:00</option>
+                <option value="14:00">14:00</option>
+                <option value="15:00">15:00</option>
             </select>
             {error.horaInicio && <span className="error">{error.horaInicio}</span>}
 
@@ -128,6 +140,8 @@ function ReservaSalaForm() {
                 <option value="11:00">11:00</option>
                 <option value="12:00">12:00</option>
                 <option value="13:00">13:00</option>
+                <option value="14:00">14:00</option>
+                <option value="15:00">15:00</option>
             </select>
             {error.horaFin && <span className="error">{error.horaFin}</span>}
 

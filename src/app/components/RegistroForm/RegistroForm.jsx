@@ -2,6 +2,7 @@ import { useState } from "react";
 import InputField from "../InputField/InputField";
 import {handleRegistro} from "../../service/usersService";
 import Button from "../Button/Button";
+import { useNavigate } from "react-router-dom";
 
 function RegistroForm() {
   const [form, setForm] = useState({
@@ -15,6 +16,7 @@ function RegistroForm() {
   });
   const [error, setError] = useState({});
   const [registroExito, setRegistroExito] = useState(false);
+  const navigate = useNavigate();
 
   const validarRegistro = () => {
     const erroresTemp = {};
@@ -67,6 +69,9 @@ function RegistroForm() {
     }
   };
 
+  const goToLogin = () => {
+    return navigate("/login")
+  }
   return (
     <div>
       <InputField
@@ -135,7 +140,7 @@ function RegistroForm() {
           <br />
           <Button
             text="Ves a login"
-            onClick={() => (window.location.href = "login.html")}
+            onClick={goToLogin}
           />
         </div>
       )}

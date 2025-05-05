@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import InputField from "../InputField/InputField";
 import Button from "../Button/Button";
 import { loginValidate } from "../../service/usersService";
@@ -11,8 +11,16 @@ function LoginForm() {
     })
 
     const [error, setError] = useState({});
-    const [loginExito, setLoginExito] = useState(false)
+    const [loginExito, setLoginExito] = useState(true)
+    const [isLogged, setIsLogged] = useState(false)
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const usuario = sessionStorage.getItem('usuario');
+        if (usuario) {
+            setIsLogged(true);
+        }
+    }, []);
 
     const validarLogin = () => {
         const erroresTemp = {};
@@ -28,31 +36,47 @@ function LoginForm() {
         setForm({ ...form, [e.target.id]: e.target.value });
     };
 
-    const handleSubmit = async() =>{
-        if(validarLogin()){
-            try{
+    const handleSubmit = async () => {
+        if (validarLogin()) {
+            try {
                 const formData = new URLSearchParams();
                 formData.append('usuario', form.usuario);
                 formData.append('password', form.password)
 
                 const res = await loginValidate(formData)
 
-                if(res.status === "success"){
-                    setLoginExito(true);
+                if (res.status === "success") {
+                    setIsLogged(true)
+                    setLoginExito(true)
                     sessionStorage.setItem('usuario', form.usuario);
                     sessionStorage.setItem('usuario_id', res.user_id)
-                    const user = sessionStorage.getItem('user')
-                    const usuario_id = sessionStorage.getItem('usuario_id')
-                    console.log(res)
-                    console.log("user", user)
-                    console.log('id', usuario_id)
+                    
+                    if (res.user_id === 1){
+                        setTimeout(() => {
+                            navigate("/admin")
+                        }, 1000)
+                    } else {
+                        setTimeout(() => {
+                            navigate("/miperfil")
+                        }, 1000)
+                    }
+
+
+                } else {
+                    setLoginExito(false);
                 }
             }
-            catch{
+            catch {
                 console.log("Error a la hora de intentar el login")
             }
         }
 
+    }
+
+    const handleLogout = () => {
+        setIsLogged(false)
+        sessionStorage.removeItem('usuario')
+        sessionStorage.removeItem('usuario_id')
     }
 
     const goToRegistro = () => {
@@ -61,29 +85,42 @@ function LoginForm() {
 
     return (
         <div>
-            <Button 
-            text="Crear cuenta"
-            onClick={goToRegistro}/>
-            <InputField
-                type="text"
-                label="Login:"
-                id="usuario"
-                value={form.usuario}
-                onChange={handleChange}
-                error={error.usuario}
-            />
-            <InputField
-                type="password"
-                label="Password:"
-                id="password"
-                value={form.password}
-                onChange={handleChange}
-                error={error.password}
-            />
-            <Button
-            text="Login"
-            onClick={handleSubmit}
-            />
+            {!isLogged && (
+                <div>
+                    <InputField
+                        type="text"
+                        label="Login:"
+                        id="usuario"
+                        value={form.usuario}
+                        onChange={handleChange}
+                        error={error.usuario}
+                    />
+                    <InputField
+                        type="password"
+                        label="Password:"
+                        id="password"
+                        value={form.password}
+                        onChange={handleChange}
+                        error={error.password}
+                    />
+                    <Button
+                        text="Login"
+                        onClick={handleSubmit}
+                    />
+                </div>
+            )}
+            <div>
+                <Button
+                    text="Log out"
+                    onClick={()=>{handleLogout()}} 
+                    disabled={!isLogged}/>
+                <Button
+                    text="Crear cuenta"
+                    onClick={goToRegistro} />
+            </div>
+
+            {!loginExito && (
+                <div><h2>Login incorrecto</h2></div>)}
         </div>
 
     );
