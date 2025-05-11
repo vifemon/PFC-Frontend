@@ -58,14 +58,18 @@ function MiPerfilPage() {
       {usuarioLogeado.reservas.map((reserva)=>(
         <div key={reserva.id}>
           <h4>{reserva.fecha_format}</h4>
+          {reserva.sala_id && (
+            reserva.sala_id == 1 ? <h4>Sala Azul</h4> : <h4>Sala Roja</h4>
+          )}
+          {reserva.cantidad_sillas && (
+            <h4>Sillas: {reserva.cantidad_sillas}</h4>
+          )}
           <p>{reserva.hora_inicio_format}</p>
           <p>{reserva.hora_fin_format}</p>
         </div>
       ))}
 
-      <div>
-
-      </div>
+      
     </div>
   )
 }
