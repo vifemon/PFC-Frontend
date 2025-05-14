@@ -2,15 +2,20 @@ import { useState, useEffect } from "react"
 import InputField from "../InputField/InputField"
 import Button from "../Button/Button";
 import { consultaSillas, reservaSillas } from "../../service/bookingService";
+import { useNavigate } from "react-router-dom";
 
 
 function ReservaSillaForm() {
     const [seleccionFecha, setSeleccionFecha] = useState("");
     const [errorFecha, setErrorFecha] = useState("");
     const [franjas, setFranjas] = useState([])
-    const [seleccionSillas, setSeleccionSillas] = useState({});
+    const [seleccionSillas, setSeleccionSillas] = useState({})
     const [reservaRealizada, setReservaRealizada] = useState(false)
-  
+    const [todoElDia, setTodoElDia] = useState(false)
+    const [seleccionTodoEldia, setSeleccionTodoElDia] = useState({})
+    const [errorCantidadSillasTodoElDia, setErrorCantidadSillasTodoElDia] = useState("");
+    const navigate = useNavigate();
+
     useEffect(() => {
         setReservaRealizada(false);
     }, [seleccionFecha]);
@@ -19,6 +24,12 @@ function ReservaSillaForm() {
     const handleFecha = (e) => {
         setSeleccionFecha(e.target.value);
     }
+
+    const handleCheckBox = (e) => {
+        setTodoElDia(e.target.checked)
+        console.log(todoElDia)
+    }
+
 
     const validarFecha = () => {
 
@@ -62,40 +73,80 @@ function ReservaSillaForm() {
     }
 
     const handleReserva = async () => {
-       
-            try {
 
-                const idUsuario = sessionStorage.getItem('usuario_id')
-                if (idUsuario === null) {
-                    alert("hay que logearse o error")
-                    return;
-                }
+        try {
 
-                console.log('sillas', seleccionSillas)
-
-                const formReserva = new URLSearchParams;
-                formReserva.append('usuario_id', idUsuario)
-                formReserva.append('fecha', seleccionFecha)
-                formReserva.append('reservas', JSON.stringify(seleccionSillas))
-
-                const res = await reservaSillas(formReserva)
-
-                if (res.success === true){
-                    setReservaRealizada(true)
-                    setSeleccionSillas({}); 
-                    setFranjas([]);   
-
-                } else {
-                    console.log(res.error)
-                }
-
-
-
-            } catch {
-                console.log("Error con la reserva de sillas")
+            const idUsuario = sessionStorage.getItem('usuario_id')
+            if (idUsuario === null) {
+                alert("hay que logearse o error")
+                navigate("/login")
             }
-        
 
+            console.log('sillas', seleccionSillas)
+
+            const formReserva = new URLSearchParams;
+            formReserva.append('usuario_id', idUsuario)
+            formReserva.append('fecha', seleccionFecha)
+            formReserva.append('reservas', JSON.stringify(seleccionSillas))
+
+            const res = await reservaSillas(formReserva)
+
+            if (res.success === true) {
+                setReservaRealizada(true)
+                setSeleccionSillas({});
+                setFranjas([]);
+
+            } else {
+                console.log(res.error)
+            }
+
+
+
+        } catch {
+            console.log("Error con la reserva de sillas")
+        }
+    }
+
+    const handleReservaTodoElDia = async () => {
+        try {
+
+            const idUsuario = sessionStorage.getItem('usuario_id')
+            if (idUsuario === null) {
+                alert("hay que logearse o error")
+                navigate("/login")
+            }
+
+            if(!seleccionTodoEldia.cantidad_sillas){
+                setErrorCantidadSillasTodoElDia("Debes seleccionar una cantidad de sillas");
+                return
+            }
+
+            const reservaTodo = {
+                ...seleccionTodoEldia,
+                hora_inicio: "08:00",
+                hora_fin: "22:00"
+              };
+
+            const formReserva = new URLSearchParams;
+            formReserva.append('usuario_id', idUsuario)
+            formReserva.append('fecha', seleccionFecha)
+            formReserva.append('reservaTodoElDia', JSON.stringify(reservaTodo))
+
+            const res = await reservaSillas(formReserva)
+
+            if (res.success === true) {
+                setReservaRealizada(true)
+
+
+            } else {
+                console.log(res.error)
+            }
+
+
+
+        } catch {
+            console.log("Error con la reserva de sillas")
+        }
     }
 
     return (
@@ -115,39 +166,76 @@ function ReservaSillaForm() {
             {franjas.length > 0 && (
                 <div>
                     <h3>Disponibilidad:</h3>
-                    {franjas.map((dato, index) => (
-                        <div key={index}>
-                            <h4>{dato.hora_inicio}</h4>
+                    <div>
+                        <InputField
+                            type="checkbox"
+                            label="Reservar todo el dia"
+                            id="todoElDia"
+                            checked={todoElDia}
+                            onChange={handleCheckBox}
+                        />
+                    </div>
+                    {todoElDia === true ? (
+                        <>
+                            <label htmlFor="cantidad_sillas">Selecciona cantidad</label>
                             <select
-                                value={seleccionSillas[dato.hora_inicio] || ""}
+                                id="cantidad_sillas"
                                 onChange={(e) => {
-                                    setSeleccionSillas({
-                                        ...seleccionSillas,
-                                        [dato.hora_inicio]: e.target.value
-                                    });
-                                    console.log("sele", seleccionSillas)
+                                    setSeleccionTodoElDia(prev => ({
+                                        ...prev,
+                                        cantidad_sillas: e.target.value
+                                    }));
+                                    setErrorCantidadSillasTodoElDia("");
                                 }}
                             >
                                 <option value="">Selecciona cantidad</option>
-                                {Array.from({ length: Math.min(dato.sillas_disponibles, 5) }, (_, i) => (
-                                    <option key={i + 1} value={i + 1}>{i + 1}</option>
-                                ))};
+                                {[1, 2, 3, 4, 5, 6].map(num => (
+                                    <option key={num} value={num}>{num}</option>
+                                ))}
                             </select>
+                            {errorCantidadSillasTodoElDia && <span className="mensaje-error">{errorCantidadSillasTodoElDia}</span>}
+                            <Button
+                                text="Reservar"
+                                onClick={handleReservaTodoElDia}
+                            />
+                        </>
+                    ) : (
+                        <>
+                            {franjas.map((dato, index) => (
+                                <div key={index}>
+                                    <h4>{dato.hora_inicio}</h4>
+                                    <select
+                                        value={seleccionSillas[dato.hora_inicio] || ""}
+                                        onChange={(e) => {
+                                            setSeleccionSillas({
+                                                ...seleccionSillas,
+                                                [dato.hora_inicio]: e.target.value
+                                            });
+                                            console.log("sele", seleccionSillas)
+                                        }}
+                                    >
+                                        <option value="">Selecciona cantidad</option>
+                                        {Array.from({ length: Math.min(dato.sillas_disponibles, 6) }, (_, i) => (
+                                            <option key={i + 1} value={i + 1}>{i + 1}</option>
+                                        ))};
+                                    </select>
 
-                        </div>
-                    ))}
-                    {Object.keys(seleccionSillas).length > 0 && (  
-                        <Button
-                            text="Reservar"
-                            onClick={handleReserva}
-                        />
+                                </div>
+                            ))}
+                            {Object.keys(seleccionSillas).length > 0 && (
+                                <Button
+                                    text="Reservar"
+                                    onClick={handleReserva}
+                                />
+                            )}
+                        </>
                     )}
                 </div>
 
 
 
             )}
-             {reservaRealizada === true && (
+            {reservaRealizada === true && (
                 <div>
                     <h2>Reserva realizada con éxito</h2>
                 </div>

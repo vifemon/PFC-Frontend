@@ -2,6 +2,7 @@ import { useState } from "react"
 import Button from "../Button/Button"
 import InputField from "../InputField/InputField"
 import { reservaSalas } from "../../service/bookingService";
+import { useNavigate } from "react-router-dom";
 
 function ReservaSalaForm() {
     const [form, setForm] = useState({
@@ -14,6 +15,7 @@ function ReservaSalaForm() {
     const [error, setError] = useState({});
     const [salaOcupada, setSalaOcupada] = useState(false)
     const [reservaRealizada, setReservaRealizada] = useState(false)
+    const navigate = useNavigate();
 
     const validarReserva = () => {
         const erroresTemp = {}
@@ -66,7 +68,7 @@ function ReservaSalaForm() {
                 const idUsuario = sessionStorage.getItem('usuario_id')
                 if (idUsuario === null) {
                     alert("hay que logearse o error")
-                    return;
+                    navigate("/login")
 
                 }
 
