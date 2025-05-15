@@ -46,8 +46,8 @@ function HomePage() {
       }
 
     }
-    catch {
-      console.log("Error al tratar de elimianr la reserva")
+    catch (error) {
+      console.log("Error al tratar de eliminar la reserva", error);
     }
 
     
@@ -63,7 +63,7 @@ function HomePage() {
      {todasReservas.map((reserva)=>(
         <div key={reserva.id}>
           <h4>{reserva.fecha_format}</h4>
-          <h4>{reserva.usuario_id}</h4>
+          <h4>{reserva.usuario}</h4>
           {reserva.sala_id && (
             reserva.sala_id == 1 ? <h4>Sala Azul</h4> : <h4>Sala Roja</h4>
           )}

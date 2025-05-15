@@ -2,7 +2,7 @@ import Header from '../components/Header/Header'
 import Button from '../components/Button/Button';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { miPerfilMostrar } from '../service/usersService';
+import { miPerfilMostrar, reservaEliminar } from '../service/usersService';
 
 function MiPerfilPage() {
   const usuarioId = sessionStorage.getItem('usuario_id');
@@ -15,6 +15,7 @@ function MiPerfilPage() {
     telefono: "",
     reservas: []
   })
+  const [reservaEliminadaId, setReservaEliminadaId] = useState(null); 
 
   useEffect(  () => {
     const getDatosUsuario = async () => {
@@ -41,6 +42,29 @@ function MiPerfilPage() {
     navigate("/")
 
   }
+
+const handleDelete = async (id) => {
+    try{
+
+      const reservaAEliminar = new URLSearchParams();
+      reservaAEliminar.append('id', id);
+      
+      const res = await reservaEliminar(reservaAEliminar);
+      if (res.status === "success") {
+        setReservaEliminadaId(id);
+        setusuarioLogeado(prev => ({
+          ...prev,
+          reservas: prev.reservas.filter(reserva => reserva.id !== id)
+        }));
+        setTimeout(() => setReservaEliminadaId(null), 3000);
+      }
+
+    }
+    catch (error) {
+      console.log("Error al tratar de eliminar la reserva", error);
+    }
+  }
+
   return (
     <div>
       <Header />
@@ -66,9 +90,14 @@ function MiPerfilPage() {
           )}
           <p>{reserva.hora_inicio_format}</p>
           <p>{reserva.hora_fin_format}</p>
+          <Button 
+          text="Eliminar"
+          onClick={() =>handleDelete(reserva.id)}/>
         </div>
       ))}
-
+{reservaEliminadaId && (
+            <h4>Reserva eliminada correctamente</h4>
+          )}
       
     </div>
   )
