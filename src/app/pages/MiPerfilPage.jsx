@@ -3,6 +3,7 @@ import Button from '../components/Button/Button';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { miPerfilMostrar, reservaEliminar } from '../service/usersService';
+import InputField from '../components/InputField/InputField';
 
 function MiPerfilPage() {
   const usuarioId = sessionStorage.getItem('usuario_id');
@@ -15,7 +16,9 @@ function MiPerfilPage() {
     telefono: "",
     reservas: []
   })
-  const [reservaEliminadaId, setReservaEliminadaId] = useState(null); 
+  const [reservaEliminadaId, setReservaEliminadaId] = useState(null);
+  const [isEdit, setIsEdit] = useState(false)
+  const [error, setError] = useState({});
 
   useEffect(  () => {
     const getDatosUsuario = async () => {
@@ -65,6 +68,40 @@ const handleDelete = async (id) => {
     }
   }
 
+  const handleChange = (e) => {
+    setusuarioLogeado(prev => ({
+      ...prev,
+      [e.target.id]: e.target.value
+    }));
+  };
+
+  const editarDatos = () => {
+    console.log("Editar datos")
+    setIsEdit(true)
+  }
+
+  const validarInsert = () => {
+    const erroresTemp = {};
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const telefonoRegex = /^(\+34|0034|34)?[6789]\d{8}$/;
+
+    if (usuarioLogeado.usuario.length <= 1)
+      erroresTemp.usuario = "Debes introducir usuario";
+    if (usuarioLogeado.nombre.length <= 1) erroresTemp.nombre = "Debes introducir nombre";
+    if (usuarioLogeado.apellidos.length <= 1)
+      erroresTemp.apellidos = "Debes introducir apellidos";
+    if (!emailRegex.test(usuarioLogeado.email))
+      erroresTemp.email = "Debe ser un email válido";
+    if (!telefonoRegex.test(usuarioLogeado.telefono))
+      erroresTemp.telefono = "Debe ser un teléfono válido";
+
+    setError(erroresTemp);
+    if (Object.keys(erroresTemp).length === 0) {
+      console.log("realizar servicio de update")
+      setIsEdit(false)
+    }
+  }
+
   return (
     <div>
       <Header />
@@ -72,8 +109,26 @@ const handleDelete = async (id) => {
         <h3>{usuarioLogeado.usuario}</h3>
         <h4>{usuarioLogeado.nombre}</h4>
         <h4>{usuarioLogeado.apellidos}</h4>
+        <InputField
+        type="text"
+        label="Telefono:"
+        id="telefono"
+        value={usuarioLogeado.telefono}
+        onChange={handleChange}
+        error={error.telefono}
+        disabled = {!isEdit}
+        />
         <p>{usuarioLogeado.telefono}</p>
         <p>{usuarioLogeado.email}</p>
+        <Button
+        text="Modificar datos"
+        onClick={editarDatos}
+        />
+        {isEdit && (
+          <Button 
+          text="Guardar cambios"
+          onClick={validarInsert}/>
+        )}
       <Button
         text="Log out"
         onClick={() => { handleLogout() }}
