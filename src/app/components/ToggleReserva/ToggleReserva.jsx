@@ -2,6 +2,7 @@ import { useState } from "react"
 import ReservaSalaForm from "../ReservaSalaForm/ReservaSalaForm"
 import ReservaSillaForm from "../ReservaSillaForm/ReservaSillaForm"
 import "./toggleReserva.css"
+import InputField from "../InputField/InputField"
 
 function ToggleReserva() {
 
@@ -15,9 +16,9 @@ function ToggleReserva() {
     <div className="switch-container">
       <div>Cambia a {tipoReserva === "sala" ? "silla" : "sala"}</div>
       <div>
-        <label class="switch">
-          <input type="checkbox" onClick={handleToggle} />
-          <span class="slider round"></span>
+        <label className="switch">
+          <InputField type="checkbox" onClick={handleToggle} />
+          <span className="slider round"></span>
         </label>
       </div>
       <div className="reserva-container">

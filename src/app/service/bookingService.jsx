@@ -58,4 +58,21 @@ export const apiReservaSalas = {
     }
 }
 
+const apiEliminarReserva = {
+    baseURL: "http://localhost:8080/arxius/projecte/reserva-delete.php",
+    headers: {
+        'Content-Type' : 'application/x-www-form-urlencoded',
+},
+}
 
+export const reservaEliminar = async (formData) => {
+    try {
+        const response = await axios.post(apiEliminarReserva.baseURL, formData, {
+            headers: apiEliminarReserva.headers
+        })
+        return response.data
+    } catch (error){
+        console.log(error)
+        throw error
+    }
+}

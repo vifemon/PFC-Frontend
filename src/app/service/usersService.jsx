@@ -57,17 +57,18 @@ export const miPerfilMostrar = async (formData) => {
     }
 }
 
-const apiEliminarReserva = {
-    baseURL: "http://localhost:8080/arxius/projecte/reserva-delete.php",
+
+const apiEditarDatos = {
+    baseURL: "http://localhost:8080/arxius/projecte/datos-update.php",
     headers: {
         'Content-Type' : 'application/x-www-form-urlencoded',
 },
 }
 
-export const reservaEliminar = async (formData) => {
+export const editarDatos = async (formData) => {
     try {
-        const response = await axios.post(apiEliminarReserva.baseURL, formData, {
-            headers: apiEliminarReserva.headers
+        const response = await axios.post(apiEditarDatos.baseURL, formData, {
+            headers: apiEditarDatos.headers
         })
         return response.data
     } catch (error){

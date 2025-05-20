@@ -2,7 +2,8 @@ import Header from "../components/Header/Header"
 import Button from "../components/Button/Button"
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from 'react';
-import { miPerfilMostrar, reservaEliminar } from '../service/usersService';
+import { miPerfilMostrar } from '../service/usersService';
+import { reservaEliminar } from "../service/bookingService";
 
 function HomePage() {
   const usuarioId = sessionStorage.getItem('usuario_id');
@@ -63,7 +64,7 @@ function HomePage() {
      {todasReservas.map((reserva)=>(
         <div key={reserva.id}>
           <h4>{reserva.fecha_format}</h4>
-          <h4>{reserva.usuario}</h4>
+          <h4>{reserva.nombre_completo}</h4>
           {reserva.sala_id && (
             reserva.sala_id == 1 ? <h4>Sala Azul</h4> : <h4>Sala Roja</h4>
           )}

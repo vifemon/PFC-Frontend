@@ -2,7 +2,8 @@ import Header from '../components/Header/Header'
 import Button from '../components/Button/Button';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { miPerfilMostrar, reservaEliminar } from '../service/usersService';
+import { editarDatos, miPerfilMostrar } from '../service/usersService';
+import { reservaEliminar } from '../service/bookingService';
 import InputField from '../components/InputField/InputField';
 
 function MiPerfilPage() {
@@ -75,12 +76,12 @@ const handleDelete = async (id) => {
     }));
   };
 
-  const editarDatos = () => {
+  const handleEdit = () => {
     console.log("Editar datos")
     setIsEdit(true)
   }
 
-  const validarInsert = () => {
+  const validarInsert = async () => {
     const erroresTemp = {};
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const telefonoRegex = /^(\+34|0034|34)?[6789]\d{8}$/;
@@ -97,7 +98,28 @@ const handleDelete = async (id) => {
 
     setError(erroresTemp);
     if (Object.keys(erroresTemp).length === 0) {
-      console.log("realizar servicio de update")
+      
+      try{
+
+        const datosUpdate = new URLSearchParams();
+        datosUpdate.append('id', usuarioId);
+        datosUpdate.append('usuario', usuarioLogeado.usuario);
+        datosUpdate.append('nombre', usuarioLogeado.nombre);
+        datosUpdate.append('apellidos', usuarioLogeado.apellidos);
+        datosUpdate.append('telefono', usuarioLogeado.telefono);
+        datosUpdate.append('email', usuarioLogeado.email);
+        
+        const res = await editarDatos(datosUpdate);
+        if (res.status === "success") {
+          alert("Datos actualizados correctamente")
+        }
+  
+      }
+      catch (error) {
+        console.log("Error al tratar de actualizar los datos", error);
+      }
+
+
       setIsEdit(false)
     }
   }
@@ -106,9 +128,33 @@ const handleDelete = async (id) => {
     <div>
       <Header />
       <div>
-        <h3>{usuarioLogeado.usuario}</h3>
-        <h4>{usuarioLogeado.nombre}</h4>
-        <h4>{usuarioLogeado.apellidos}</h4>
+        <InputField
+        type="text"
+        label="Usuario:"
+        id="usuario"
+        value={usuarioLogeado.usuario}
+        onChange={handleChange}
+        error={error.usuario}
+        disabled = {!isEdit}
+        />
+        <InputField
+        type="text"
+        label="Nombre:"
+        id="nombre"
+        value={usuarioLogeado.nombre}
+        onChange={handleChange}
+        error={error.nombre}
+        disabled = {!isEdit}
+        />
+        <InputField
+        type="text"
+        label="Apellidos:"
+        id="apellidos"
+        value={usuarioLogeado.apellidos}
+        onChange={handleChange}
+        error={error.apellidos}
+        disabled = {!isEdit}
+        />
         <InputField
         type="text"
         label="Telefono:"
@@ -118,11 +164,18 @@ const handleDelete = async (id) => {
         error={error.telefono}
         disabled = {!isEdit}
         />
-        <p>{usuarioLogeado.telefono}</p>
-        <p>{usuarioLogeado.email}</p>
+         <InputField
+        type="text"
+        label="Email:"
+        id="email"
+        value={usuarioLogeado.email}
+        onChange={handleChange}
+        error={error.email}
+        disabled = {!isEdit}
+        />
         <Button
         text="Modificar datos"
-        onClick={editarDatos}
+        onClick={handleEdit}
         />
         {isEdit && (
           <Button 
