@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './menu.css';
 
 const Navbar = () => {
@@ -29,7 +29,7 @@ const Navbar = () => {
     <nav
     className={`navbar ${showNavbar ? 'visible' : 'hidden'} ${
       atTop ? 'transparent' : 'solid'
-    } ${atTop ? 'text-dark' : 'text-light'}`}
+    } ${atTop ? 'text-light' : 'text-dark'}`}
   >
       <div className="logo">Mi Sitio</div>
       <button className="hamburger" onClick={toggleMenu} aria-label="Toggle menu">

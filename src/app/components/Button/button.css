@@ -1,0 +1,35 @@
+.button {
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    padding: 7px 28px;
+    border: 2px solid rgba(110, 195, 255);
+    cursor: pointer;
+    margin: 2px;
+    transition: transform 0.2s ease-in-out;
+    font-family: "WDXL Lubrifont TC", sans-serif;
+}
+
+.button:hover{
+    background-color: rgba(110, 195, 255);
+    /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); */
+}
+
+.button:active {
+    transform: scale(0.9); 
+}
+
+.button--important {
+    border: 2px solid rgba(110, 195, 255);
+    background-color: rgba(110, 195, 255);
+    
+}
+
+.button--danger {
+    border: 2px solid rgb(255, 135, 87);
+   
+}
+
+.button--danger:hover{
+    background-color: rgb(255, 135, 87);
+}

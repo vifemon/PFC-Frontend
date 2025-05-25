@@ -1,0 +1,9 @@
+.main-container {
+    background-color: rgba(0, 49, 60);
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+   
+
+}

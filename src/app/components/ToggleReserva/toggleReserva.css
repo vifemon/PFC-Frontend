@@ -1,3 +1,20 @@
+ /* Main layout */
+
+ .switch-container{
+  width: fit-content;
+  margin-top: 7%;
+  padding-top: 5%;
+  background-color: rgba(242, 247, 251);
+  border-radius: 6px;
+ }
+
+ .reserva-container{
+  display: flex;
+  flex-direction: column;
+ }
+
+ 
+ 
  /* The switch - the box around the slider */
  .switch {
     position: relative;

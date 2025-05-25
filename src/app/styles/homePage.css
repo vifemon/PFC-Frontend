@@ -1,0 +1,26 @@
+/* Scroll y layout */
+body {
+    margin: 0;
+    overflow: hidden; /* Scroll solo en el contenedor */
+  }
+  
+  .home-container {
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+  }
+  
+  .section {
+    height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: white;
+    text-align: center;
+   
+  }
+  
+  

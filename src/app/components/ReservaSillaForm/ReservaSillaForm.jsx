@@ -3,6 +3,7 @@ import InputField from "../InputField/InputField"
 import Button from "../Button/Button";
 import { consultaSillas, reservaSillas } from "../../service/bookingService";
 import { useNavigate } from "react-router-dom";
+import '../../styles/bookingForm.css'
 
 
 function ReservaSillaForm() {
@@ -150,7 +151,7 @@ function ReservaSillaForm() {
     }
 
     return (
-        <div>
+        <div className= "reserva-container-form">
             <InputField
                 type="date"
                 label="Fecha:"
@@ -176,7 +177,7 @@ function ReservaSillaForm() {
                         />
                     </div>
                     {todoElDia === true ? (
-                        <>
+                        <div className="franja-todoElDia">
                             <label htmlFor="cantidad_sillas">Selecciona cantidad</label>
                             <select
                                 id="cantidad_sillas"
@@ -198,11 +199,11 @@ function ReservaSillaForm() {
                                 text="Reservar"
                                 onClick={handleReservaTodoElDia}
                             />
-                        </>
+                        </div>
                     ) : (
                         <>
                             {franjas.map((dato, index) => (
-                                <div key={index}>
+                                <div key={index} className="franja-container">
                                     <h4>{dato.hora_inicio}</h4>
                                     <select
                                         value={seleccionSillas[dato.hora_inicio] || ""}

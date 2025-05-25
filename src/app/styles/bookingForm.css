@@ -1,0 +1,35 @@
+.reserva-container-form {
+    display: flex;
+    flex-direction: column;;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    width: 90vw;
+    background-color: white;
+    gap: 10px;
+    border: 1px solid black;
+    
+}
+
+label {
+    font-size: 20px;
+    color: rgba( 34, 49, 60);
+    margin-right: 10px;
+}
+
+/* Booking per day  row*/
+
+.franja-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.franja-todoElDia {
+    display: flex;
+    flex-direction: column;
+    
+    gap: 10px;
+}

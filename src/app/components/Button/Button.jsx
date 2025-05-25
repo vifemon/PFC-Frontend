@@ -1,3 +1,5 @@
+import './button.css'
+
 const Button = ({ text, onClick, disabled = false, variant = "primary" }) => {
   return (
     <button

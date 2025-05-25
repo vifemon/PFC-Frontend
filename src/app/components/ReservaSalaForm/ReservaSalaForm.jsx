@@ -3,6 +3,7 @@ import Button from "../Button/Button"
 import InputField from "../InputField/InputField"
 import { reservaSalas } from "../../service/bookingService";
 import { useNavigate } from "react-router-dom";
+import '../../styles/bookingForm.css'
 
 function ReservaSalaForm() {
     const [form, setForm] = useState({
@@ -95,7 +96,7 @@ function ReservaSalaForm() {
 
 
     return (
-        <div>
+        <div className= "reserva-container-form">
             <label htmlFor="sala">Sala:</label>
             <select id="sala" onChange={handleChange} value={form.sala}>
                 <option value="">Selecciona sala</option>

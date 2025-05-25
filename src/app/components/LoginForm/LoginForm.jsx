@@ -111,6 +111,7 @@ function LoginForm() {
             )}
             <div>
                 <Button
+                    variant="important"
                     text="Log out"
                     onClick={()=>{handleLogout()}} 
                     disabled={!isLogged}/>
