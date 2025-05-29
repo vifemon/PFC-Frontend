@@ -1,0 +1,35 @@
+body {
+    background-color: rgba(34, 49, 60);
+}
+
+
+.login-form__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    margin: 40px 50px 40px;
+    border: 1px solid black;
+    padding: 20px 50px 20px;
+    margin-top: 20%;
+    padding-top: 5%;
+    max-width: 70%;
+    border-radius: 6px;
+    
+}
+
+.login-form__inputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 20px;
+}
+
+.login-form__error {
+    color:red;
+    font-size: 12px;
+}
+
+
+
+

@@ -3,16 +3,17 @@ import Header from "../components/Header/Header"
 import Navbar from "../components/Navbar/Navbar"
 import Menu from "../components/Header/Menu"
 import "../styles/homePage.css"
+import fondo from "../../assets/muestra.jpg"
 
 function HomePage() {
   
 
   return (
     <>
-      <Navbar />
+      <Navbar  scrollContainerClass="home-container"/>
       <div className="home-container">
         <div className="section " style= {{ backgroundColor: "blue" }}>
-          <h1>Sección 1</h1>
+          <img src={fondo} alt="" />
         </div>
         <div className="section " style= {{ backgroundColor: "orange" }}>
           <h1>Sección 2</h1>

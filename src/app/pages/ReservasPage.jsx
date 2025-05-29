@@ -7,11 +7,17 @@ import '../styles/generalPage.css'
 
 function ReservasPage() {
   return (
-    <div className='main-container'>
+    <>
       <Navbar />
-      <ToggleReserva/>
-    </div>
+      <div className='main-container'>
+
+        <ToggleReserva />
+
+      </div>
+    </>
   )
+
+
 }
 
 export default ReservasPage

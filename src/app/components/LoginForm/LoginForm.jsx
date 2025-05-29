@@ -3,6 +3,7 @@ import InputField from "../InputField/InputField";
 import Button from "../Button/Button";
 import { loginValidate } from "../../service/usersService";
 import { useNavigate } from "react-router-dom";
+import './loginForm.css'
 
 function LoginForm() {
     const [form, setForm] = useState({
@@ -84,9 +85,9 @@ function LoginForm() {
     }
 
     return (
-        <div>
+        <div className="login-form__container">
             {!isLogged && (
-                <div>
+                <div className="login-form__inputs">
                     <InputField
                         type="text"
                         label="Login:"
@@ -107,21 +108,14 @@ function LoginForm() {
                         text="Login"
                         onClick={handleSubmit}
                     />
-                </div>
-            )}
-            <div>
-                <Button
-                    variant="important"
-                    text="Log out"
-                    onClick={()=>{handleLogout()}} 
-                    disabled={!isLogged}/>
-                <Button
+                    <Button
                     text="Crear cuenta"
                     onClick={goToRegistro} />
-            </div>
+                </div>
+            )}
 
             {!loginExito && (
-                <div><h2>Login incorrecto</h2></div>)}
+                <div className="login-form__error"><h2>Login incorrecto</h2></div>)}
         </div>
 
     );

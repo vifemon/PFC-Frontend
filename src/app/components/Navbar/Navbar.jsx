@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import './navbar.css';
 import { Link } from "react-router-dom"
 
-const Navbar = () => {
+const Navbar = ({ scrollContainerClass = '' }) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [showNavbar, setShowNavbar] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
@@ -15,20 +15,26 @@ const Navbar = () => {
     const toggleMenu = () => setMenuOpen(!menuOpen);
 
     useEffect(() => {
-        const container = document.querySelector('.home-container');
-        if (!container) return;
+        const container = scrollContainerClass
+          ? document.querySelector(`.${scrollContainerClass}`)
+          : window;
+    
+        if (!container || typeof container.addEventListener !== 'function') return;
     
         const handleScroll = () => {
-            const currentY = container.scrollTop;
+          const currentY =
+            container === window
+              ? window.scrollY
+              : container.scrollTop;
     
-            setShowNavbar(currentY < lastScrollY || currentY <= 0);
-            setLastScrollY(currentY);
-            setAtTop(currentY === 0);
+          setShowNavbar(currentY < lastScrollY || currentY <= 0);
+          setLastScrollY(currentY);
+          setAtTop(currentY === 0);
         };
     
         container.addEventListener('scroll', handleScroll);
         return () => container.removeEventListener('scroll', handleScroll);
-    }, [lastScrollY]);
+      }, [lastScrollY, scrollContainerClass]);
 
     const handleHomeClick = (e) => {
         if (location.pathname === '/') {
