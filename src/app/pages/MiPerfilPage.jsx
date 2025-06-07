@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { editarDatos, miPerfilMostrar } from '../service/usersService';
 import { reservaEliminar } from '../service/bookingService';
 import InputField from '../components/InputField/InputField';
+import Navbar from '../components/Navbar/Navbar';
+import '../styles/perfilPage.css'
 
 function MiPerfilPage() {
   const usuarioId = sessionStorage.getItem('usuario_id');
@@ -125,18 +127,21 @@ const handleDelete = async (id) => {
   }
 
   return (
-    <div>
-      <Header />
-      <div>
-        <InputField
-        type="text"
-        label="Usuario:"
-        id="usuario"
-        value={usuarioLogeado.usuario}
-        onChange={handleChange}
-        error={error.usuario}
-        disabled = {!isEdit}
-        />
+    <>
+      <Navbar />
+      <div className="main-container">
+        <div className="datos-container">
+          <div className="foto-perfil"></div>
+          <div className="nombre-container__title"><h2>{usuarioLogeado.nombre}</h2>
+          <h2>{usuarioLogeado.apellidos}</h2>
+          <h4>Usuario: {usuarioLogeado.usuario}</h4></div>
+          <Button
+        text="Log out"
+        onClick={() => { handleLogout() }}
+      />
+        </div>
+        <div className="datos-container">
+          <div className="form-container__inputs">
         <InputField
         type="text"
         label="Nombre:"
@@ -155,6 +160,8 @@ const handleDelete = async (id) => {
         error={error.apellidos}
         disabled = {!isEdit}
         />
+        </div>
+        <div className="form-container__inputs">
         <InputField
         type="text"
         label="Telefono:"
@@ -173,6 +180,8 @@ const handleDelete = async (id) => {
         error={error.email}
         disabled = {!isEdit}
         />
+        </div>
+<div className="buttons-container">
         <Button
         text="Modificar datos"
         onClick={handleEdit}
@@ -182,32 +191,43 @@ const handleDelete = async (id) => {
           text="Guardar cambios"
           onClick={validarInsert}/>
         )}
-      <Button
-        text="Log out"
-        onClick={() => { handleLogout() }}
-      />
+     
       </div>
+      </div>
+      <div className="reservas-container">
+        <table className="reservas-container__row">
+        <th>Fecha:</th>
+        <th>Reserva:</th>
+        <th>Hora inicio:</th>
+        <th>Hora fin:</th>
+        <th>Elminar reserva</th>
+        
       {usuarioLogeado.reservas.map((reserva)=>(
-        <div key={reserva.id}>
-          <h4>{reserva.fecha_format}</h4>
+        <tr key={reserva.id} className="reservas-container__row">
+          <td>{reserva.fecha_format}</td>
           {reserva.sala_id && (
-            reserva.sala_id == 1 ? <h4>Sala Azul</h4> : <h4>Sala Roja</h4>
+            reserva.sala_id == 1 ? <td>Sala Azul</td> : <td>Sala Roja</td>
           )}
           {reserva.cantidad_sillas && (
-            <h4>Sillas: {reserva.cantidad_sillas}</h4>
+            <td>Sillas: {reserva.cantidad_sillas}</td>
           )}
-          <p>{reserva.hora_inicio_format}</p>
-          <p>{reserva.hora_fin_format}</p>
-          <Button 
+          <td>{reserva.hora_inicio_format}</td>
+          <td>{reserva.hora_fin_format}</td>
+          <td><Button 
           text="Eliminar"
+          className="button-eliminar"
           onClick={() =>handleDelete(reserva.id)}/>
-        </div>
-      ))}
-{reservaEliminadaId && (
+          </td>
+          {reservaEliminadaId && (
             <h4>Reserva eliminada correctamente</h4>
           )}
-      
-    </div>
+        </tr>
+      ))}
+      </table>
+      </div>
+
+      </div>
+    </>
   )
 }
 

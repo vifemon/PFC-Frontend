@@ -3,7 +3,7 @@ import InputField from "../InputField/InputField"
 import Button from "../Button/Button";
 import { consultaSillas, reservaSillas } from "../../service/bookingService";
 import { useNavigate } from "react-router-dom";
-import '../../styles/bookingForm.css'
+import '../../styles/reservaForm.css'
 
 
 function ReservaSillaForm() {
@@ -151,7 +151,7 @@ function ReservaSillaForm() {
     }
 
     return (
-        <div className= "reserva-container-form">
+        <div className= "form-container__inputs">
             <InputField
                 type="date"
                 label="Fecha:"
@@ -167,8 +167,9 @@ function ReservaSillaForm() {
             {franjas.length > 0 && (
                 <div>
                     <h3>Disponibilidad:</h3>
-                    <div>
+                    <div className="checkbox-container">
                         <InputField
+                            className="allDay-checkbox"
                             type="checkbox"
                             label="Reservar todo el dia"
                             id="todoElDia"
@@ -177,7 +178,7 @@ function ReservaSillaForm() {
                         />
                     </div>
                     {todoElDia === true ? (
-                        <div className="franja-todoElDia">
+                        <div className="form-container__inputs">
                             <label htmlFor="cantidad_sillas">Selecciona cantidad</label>
                             <select
                                 id="cantidad_sillas"

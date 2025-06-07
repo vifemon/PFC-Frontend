@@ -1,7 +1,7 @@
 
 
 input, label {
-    margin-left: 10px;
+    
     font-family: "Urbanist", sans-serif;
     font-size: 16px;
     font-weight: bold;;
@@ -9,7 +9,7 @@ input, label {
 
 
 input {
-    width: 150px;
+    width: 100%;
     border: none;
     background: transparent;
     border-bottom: 2px solid rgba(110, 195, 255);

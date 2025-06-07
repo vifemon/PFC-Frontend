@@ -1,0 +1,57 @@
+.datos-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 20px 50px 20px;
+    padding: 20px 50px 20px;
+    margin-top: 20%;
+    padding-top: 5%; 
+    gap: 10vw;
+}
+
+.datos-container button{
+    width:auto;
+}
+
+.nombre-container__title{
+    width: fit-content;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.foto-perfil{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 2px solid rgba(110, 195, 255);
+    background-color: rgba(34, 49, 60, 1);
+    
+}
+
+.buttons-container{
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+.reservas-container{
+    width: 80%;
+}
+
+.reservas-container__row{
+    width: 100%;
+    border: 1px solid black;
+
+}
+
+th{
+    text-align: start;
+}
+
+
+
+

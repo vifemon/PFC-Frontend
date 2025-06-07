@@ -1,25 +1,3 @@
-.reserva-container-form {
-    display: flex;
-    flex-direction: column;;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-    padding-top: 10%;
-    padding-bottom: 10%;
-    width: 70vw;
-    background-color: white;
-    gap: 10px;
-    border-radius: 6px;
-    
-    
-}
-
-label {
-    font-size: 16px;
-    margin-right: 10px;
-}
-
-/* Booking per day  row*/
 
 .franja-container{
     display: flex;
@@ -29,10 +7,23 @@ label {
     gap: 10px;
 }
 
-.franja-todoElDia {
+.checkbox-container{
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 6px;
+    padding: 10px;
+    margin: 5px; 
+}
+
+
+
+
+.checkbox-container input {
+    width: auto !important;
+    margin-bottom: 0 !important;
 }
 
 
@@ -67,9 +58,3 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
     
   }
 
-  
-  @media (min-width: 768px) {
-    .reserva-container-form{
-        width: 40vw;
-    }
-}

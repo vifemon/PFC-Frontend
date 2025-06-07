@@ -4,18 +4,10 @@
   width: fit-content;
   margin-top: 10%;
   padding-top: 5%;
-  border-radius: 6px;
-
- 
+  
  }
 
- .reserva-container{
-  display: flex;
-  flex-direction: column;
- }
 
- 
- 
  /* The switch - the box around the slider */
  .switch {
     position: relative;

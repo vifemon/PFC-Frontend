@@ -21,7 +21,7 @@ function ToggleReserva() {
           <span className="slider round"></span>
         </label>
       </div>
-      <div className="reserva-container">
+      <div className="form-container">
         <p>Reservando {tipoReserva}</p>
         {tipoReserva === "sala" ? <ReservaSalaForm /> : <ReservaSillaForm />}
       </div>

@@ -1,13 +1,16 @@
 import React from 'react'
 import Header from '../components/Header/Header'
 import RegistroForm from '../components/RegistroForm/RegistroForm'
+import Navbar from '../components/Navbar/Navbar'
 
 function RegistroPage() {
   return (
-    <div>
-      <Header/>
+    <>
+    <Navbar/>
+    <div className="main-container">
       <RegistroForm/>
     </div>
+    </>
   )
 }
 

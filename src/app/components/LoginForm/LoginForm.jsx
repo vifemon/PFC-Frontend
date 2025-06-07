@@ -3,7 +3,7 @@ import InputField from "../InputField/InputField";
 import Button from "../Button/Button";
 import { loginValidate } from "../../service/usersService";
 import { useNavigate } from "react-router-dom";
-import './loginForm.css'
+import '../../styles/generalPage.css'
 
 function LoginForm() {
     const [form, setForm] = useState({
@@ -85,9 +85,10 @@ function LoginForm() {
     }
 
     return (
-        <div className="login-form__container">
+        <div className="form-container">
+            <h2>Login</h2>
             {!isLogged && (
-                <div className="login-form__inputs">
+                <div className="form-container__inputs">
                     <InputField
                         type="text"
                         label="Login:"
@@ -111,6 +112,7 @@ function LoginForm() {
                     <Button
                     text="Crear cuenta"
                     onClick={goToRegistro} />
+                      
                 </div>
             )}
 

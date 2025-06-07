@@ -73,10 +73,12 @@ function RegistroForm() {
     return navigate("/login")
   }
   return (
-    <div>
+    <div className="form-container">
+      <h2>Formulario de registro</h2>
+      <div className="form-container__inputs">
       <InputField
         type="text"
-        label="Nombre de usuario"
+        label="Nombre de usuario:"
         id="usuario"
         value={form.usuario}
         onChange={handleChange}
@@ -144,6 +146,7 @@ function RegistroForm() {
           />
         </div>
       )}
+      </div>
     </div>
   );
 }
