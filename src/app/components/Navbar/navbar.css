@@ -34,10 +34,12 @@
 
 /* Control de color del texto */
 .navbar.text-dark {
+ 
   color: black;
 }
 
 .navbar.text-light {
+  font-weight: bold;
   color: white;
 }
 

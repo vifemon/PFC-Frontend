@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap');
 .button {
-    background-color: white;
-    color: black;
+    background-color: transparent;
+    color: white;
     border-radius: 10px;
     padding: 7px 28px;
     border: 2px solid rgba(110, 195, 255);
@@ -13,7 +13,7 @@
     font-size:16px;
     height: auto;
     min-width: 230px;
-    width: 100%;
+    
 }
 
 .button:hover{

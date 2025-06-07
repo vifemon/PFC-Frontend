@@ -38,7 +38,7 @@ const Navbar = ({ scrollContainerClass = '' }) => {
 
     const handleHomeClick = (e) => {
         if (location.pathname === '/') {
-            e.preventDefault(); // evitar navegación redundante
+            e.preventDefault(); 
             const container = document.querySelector('.home-container');
             if (container) {
                 container.scrollTo({ top: 0, behavior: 'smooth' });
@@ -69,7 +69,11 @@ const Navbar = ({ scrollContainerClass = '' }) => {
             </div>
             <div>
                 {isLogged ? (
+                    isLogged === 'admin' ? ( 
+                    <Link to="/admin">Mi perfil</Link> 
+                ) : (
                     <Link to="/miperfil">Mi perfil</Link>
+                )
                 ) : (
                     <Link to="/login">Mi perfil</Link>)}
             </div>

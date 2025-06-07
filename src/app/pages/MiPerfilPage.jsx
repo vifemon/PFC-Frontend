@@ -23,22 +23,22 @@ function MiPerfilPage() {
   const [isEdit, setIsEdit] = useState(false)
   const [error, setError] = useState({});
 
-  useEffect(  () => {
+  useEffect(() => {
     const getDatosUsuario = async () => {
-    const formId = new URLSearchParams;
-    formId.append('usuario_id', usuarioId)
-    try {
-    const getDatos = await miPerfilMostrar(formId)
-    setusuarioLogeado({
-      ...getDatos.usuario,
-      reservas: getDatos.reservas
-    }) 
-    } catch (error) {
-      console.log("Error al obtener los datos", error)
-    }  
-  }
+      const formId = new URLSearchParams;
+      formId.append('usuario_id', usuarioId)
+      try {
+        const getDatos = await miPerfilMostrar(formId)
+        setusuarioLogeado({
+          ...getDatos.usuario,
+          reservas: getDatos.reservas
+        })
+      } catch (error) {
+        console.log("Error al obtener los datos", error)
+      }
+    }
     getDatosUsuario();
-  },[])
+  }, [])
 
 
 
@@ -49,12 +49,12 @@ function MiPerfilPage() {
 
   }
 
-const handleDelete = async (id) => {
-    try{
+  const handleDelete = async (id) => {
+    try {
 
       const reservaAEliminar = new URLSearchParams();
       reservaAEliminar.append('id', id);
-      
+
       const res = await reservaEliminar(reservaAEliminar);
       if (res.status === "success") {
         setReservaEliminadaId(id);
@@ -100,8 +100,8 @@ const handleDelete = async (id) => {
 
     setError(erroresTemp);
     if (Object.keys(erroresTemp).length === 0) {
-      
-      try{
+
+      try {
 
         const datosUpdate = new URLSearchParams();
         datosUpdate.append('id', usuarioId);
@@ -110,12 +110,12 @@ const handleDelete = async (id) => {
         datosUpdate.append('apellidos', usuarioLogeado.apellidos);
         datosUpdate.append('telefono', usuarioLogeado.telefono);
         datosUpdate.append('email', usuarioLogeado.email);
-        
+
         const res = await editarDatos(datosUpdate);
         if (res.status === "success") {
           alert("Datos actualizados correctamente")
         }
-  
+
       }
       catch (error) {
         console.log("Error al tratar de actualizar los datos", error);
@@ -133,99 +133,128 @@ const handleDelete = async (id) => {
         <div className="datos-container">
           <div className="foto-perfil"></div>
           <div className="nombre-container__title"><h2>{usuarioLogeado.nombre}</h2>
-          <h2>{usuarioLogeado.apellidos}</h2>
-          <h4>Usuario: {usuarioLogeado.usuario}</h4></div>
+            <h2>{usuarioLogeado.apellidos}</h2>
+            <h4>Usuario: {usuarioLogeado.usuario}</h4></div>
           <Button
-        text="Log out"
-        onClick={() => { handleLogout() }}
-      />
+            text="Log out"
+            onClick={() => { handleLogout() }}
+            variant="important"
+          />
         </div>
-        <div className="datos-container">
-          <div className="form-container__inputs">
-        <InputField
-        type="text"
-        label="Nombre:"
-        id="nombre"
-        value={usuarioLogeado.nombre}
-        onChange={handleChange}
-        error={error.nombre}
-        disabled = {!isEdit}
-        />
-        <InputField
-        type="text"
-        label="Apellidos:"
-        id="apellidos"
-        value={usuarioLogeado.apellidos}
-        onChange={handleChange}
-        error={error.apellidos}
-        disabled = {!isEdit}
-        />
-        </div>
-        <div className="form-container__inputs">
-        <InputField
-        type="text"
-        label="Telefono:"
-        id="telefono"
-        value={usuarioLogeado.telefono}
-        onChange={handleChange}
-        error={error.telefono}
-        disabled = {!isEdit}
-        />
-         <InputField
-        type="text"
-        label="Email:"
-        id="email"
-        value={usuarioLogeado.email}
-        onChange={handleChange}
-        error={error.email}
-        disabled = {!isEdit}
-        />
-        </div>
-<div className="buttons-container">
-        <Button
-        text="Modificar datos"
-        onClick={handleEdit}
-        />
-        {isEdit && (
-          <Button 
-          text="Guardar cambios"
-          onClick={validarInsert}/>
-        )}
-     
-      </div>
-      </div>
-      <div className="reservas-container">
-        <table className="reservas-container__row">
-        <th>Fecha:</th>
-        <th>Reserva:</th>
-        <th>Hora inicio:</th>
-        <th>Hora fin:</th>
-        <th>Elminar reserva</th>
-        
-      {usuarioLogeado.reservas.map((reserva)=>(
-        <tr key={reserva.id} className="reservas-container__row">
-          <td>{reserva.fecha_format}</td>
-          {reserva.sala_id && (
-            reserva.sala_id == 1 ? <td>Sala Azul</td> : <td>Sala Roja</td>
-          )}
-          {reserva.cantidad_sillas && (
-            <td>Sillas: {reserva.cantidad_sillas}</td>
-          )}
-          <td>{reserva.hora_inicio_format}</td>
-          <td>{reserva.hora_fin_format}</td>
-          <td><Button 
-          text="Eliminar"
-          className="button-eliminar"
-          onClick={() =>handleDelete(reserva.id)}/>
-          </td>
-          {reservaEliminadaId && (
-            <h4>Reserva eliminada correctamente</h4>
-          )}
-        </tr>
-      ))}
-      </table>
-      </div>
+        <div className="title-container">
+          <h1>Información personal</h1>
 
+          <div className="datos-container">
+
+            <div className="form-container__inputs">
+              <InputField
+                type="text"
+                label="Nombre:"
+                id="nombre"
+                value={usuarioLogeado.nombre}
+                onChange={handleChange}
+                error={error.nombre}
+                disabled={!isEdit}
+              />
+              <InputField
+                type="text"
+                label="Apellidos:"
+                id="apellidos"
+                value={usuarioLogeado.apellidos}
+                onChange={handleChange}
+                error={error.apellidos}
+                disabled={!isEdit}
+              />
+            </div>
+            <div className="form-container__inputs">
+              <InputField
+                type="text"
+                label="Telefono:"
+                id="telefono"
+                value={usuarioLogeado.telefono}
+                onChange={handleChange}
+                error={error.telefono}
+                disabled={!isEdit}
+              />
+              <InputField
+                type="text"
+                label="Email:"
+                id="email"
+                value={usuarioLogeado.email}
+                onChange={handleChange}
+                error={error.email}
+                disabled={!isEdit}
+              />
+            </div>
+            <div className="buttons-container">
+              <Button
+                text="Modificar datos"
+                onClick={handleEdit}
+              />
+              {isEdit && (
+                <Button
+                  text="Guardar cambios"
+                  onClick={validarInsert} />
+              )}
+
+            </div>
+          </div>
+        </div>
+        <div className="title-container">
+          <h1>Mis reservas</h1>
+        <div className="reservas-container">
+          <table className="reservas-container__row">
+            <th>Fecha</th>
+            <th>Reserva</th>
+            <th>Hora inicio</th>
+            <th>Hora fin:</th>
+            <th>Elminar reserva</th>
+
+            {usuarioLogeado.reservas.map((reserva) => (
+              <tr key={reserva.id} className="reservas-container__row">
+                <td>{reserva.fecha_format}</td>
+                {reserva.sala_id && (
+                  reserva.sala_id == 1 ? <td>Sala Azul</td> : <td>Sala Roja</td>
+                )}
+                {reserva.cantidad_sillas && (
+                  <td>Sillas: {reserva.cantidad_sillas}</td>
+                )}
+                <td>{reserva.hora_inicio_format}</td>
+                <td>{reserva.hora_fin_format}</td>
+                <td className="button-container__delete">
+                  <Button
+                  text="Eliminar"
+                  className="button-eliminar"
+                  onClick={() => handleDelete(reserva.id)} />
+                </td>
+                
+              </tr>
+            ))}
+          </table>
+          
+<div className="reservas-cards">
+  {usuarioLogeado.reservas.map((reserva) => (
+    <div key={reserva.id} className="reserva-card">
+      <p><strong>Fecha:</strong> {reserva.fecha_format}</p>
+      <p><strong>Reserva:</strong> {reserva.sala_id === 1 ? "Sala Azul" : "Sala Roja"}</p>
+      {reserva.cantidad_sillas && <p><strong>Sillas:</strong> {reserva.cantidad_sillas}</p>}
+      <p><strong>Inicio:</strong> {reserva.hora_inicio_format}</p>
+      <p><strong>Fin:</strong> {reserva.hora_fin_format}</p>
+      <Button
+        text="Eliminar"
+        className="button-eliminar"
+        onClick={() => handleDelete(reserva.id)}
+      />
+     
+    </div>
+  ))}
+</div>
+
+          {reservaEliminadaId && (
+                  <h4>Reserva eliminada correctamente</h4>
+                )}
+        </div>
+        </div>
       </div>
     </>
   )

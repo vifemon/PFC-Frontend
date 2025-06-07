@@ -54,7 +54,14 @@ option {
 
 input[type="date"]::-webkit-calendar-picker-indicator:hover {
     border-radius: 6px;
-    background-color: rgba(110, 195, 255);
-    
+    background-color: rgba(145, 60, 0);
   }
+  input[type="date"]::-webkit-calendar-picker-indicator{
+    filter: invert(100%);
+  cursor: pointer;
+  }
+
+input{
+    color: white;
+}
 

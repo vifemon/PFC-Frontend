@@ -21,10 +21,47 @@ body {
    
   }
 
-  .section img {
+  .section img, video {
     width: 100vw;
     height: 100%;
     object-fit: cover;;
+  }
+  
+  .video-wrapper {
+    position: relative;
+    width: 100vw;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .video-wrapper video {
+    width: 100vw;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .video-overlay {
+    position: absolute;
+    top: 60%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-size: 2rem;
+    opacity: 0;
+    transition: opacity 1s ease, transform 3s ease;
+    pointer-events: none;
+    text-align: left;
+  }
+  
+  .video-overlay.visible {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .video-overlay button {
+    pointer-events: auto;
+    
   }
   
   
