@@ -102,6 +102,7 @@
 /* Mostrar menú móvil */
 .nav-links.show {
   display: flex;
+  gap: 3rem;
 }
 
 /* Enlaces */

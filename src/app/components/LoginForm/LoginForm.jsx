@@ -86,7 +86,7 @@ function LoginForm() {
     }
 
     return (
-        <div className="form-container">
+        <div className="form-container form-container__login">
             <h2>Login</h2>
             {!isLogged && (
                 <div className="form-container__inputs">

@@ -9,7 +9,7 @@ import fondo from "../../assets/muestra.jpg"
 import video from "../../assets/0001-0100.mp4"
 import Button from "../components/Button/Button"
 import TabButton from "../components/Tab/TabButton";
-import { ESPACIOS } from "../data/tab_espacios"; 
+import { ESPACIOS } from "../data/tab_espacios";
 import "../components/Tab/tabButton.css"
 
 function HomePage() {
@@ -20,18 +20,18 @@ function HomePage() {
   let tabContent = <p></p>
   if (selectedOption) {
     tabContent = (
-    <div className="tab-content">
-              <h1>{ESPACIOS[selectedOption].title}</h1>
-              <p>{ESPACIOS[selectedOption].description}</p>
-              <div className="tab-img">
-              <div><img src={fondo} alt="" /></div>
-              <div className="hidden-img"><img src={fondo} alt="" /></div>
-              <div className="hidden-img"><img src={fondo} alt="" /></div>
-              </div>
-              <div className="tab-contacto">
-            <Headset size={35}  /> <h2>Concierta una visita con nosotros sin compromiso y conoce los espacios de primera mano</h2>
-            </div>
-            </div>
+      <div className="tab-content">
+        <h1>{ESPACIOS[selectedOption].title}</h1>
+        <p>{ESPACIOS[selectedOption].description}</p>
+        <div className="tab-img">
+          <div><img src={fondo} alt="" /></div>
+          <div className="hidden-img"><img src={fondo} alt="" /></div>
+          <div className="hidden-img"><img src={fondo} alt="" /></div>
+        </div>
+        <div className="tab-contacto">
+          <Headset size={35} /> <h2>Concierta una visita con nosotros sin compromiso y conoce los espacios de primera mano</h2>
+        </div>
+      </div>
     )
   }
 
@@ -53,8 +53,12 @@ function HomePage() {
     return () => observer.disconnect();
   }, [hasShown]);
 
-  const handleNavigate = () => {
+  const handleNavigateReservas = () => {
     navigate("/reserva")
+  }
+
+  const handleNavigateRegistro = () => {
+    navigate("/registro")
   }
 
   const handleSelect = (selectedButton) => {
@@ -76,7 +80,7 @@ function HomePage() {
               <h3>Tu coworking en L'Horta Nord</h3>
               <Button
                 text="Reservar"
-                onClick={handleNavigate}
+                onClick={handleNavigateReservas}
                 variant="important" />
 
             </div>
@@ -87,55 +91,62 @@ function HomePage() {
             <h2>Espacios</h2>
             <menu>
               <TabButton text="Espacio Coworking" isSelected={selectedOption === 'sala_comun'} onSelect={() => handleSelect('sala_comun')} />
-              <TabButton text="Sala Sol" isSelected={selectedOption === 'sala_1'} onSelect={() => handleSelect('sala_1')}/>
-              <TabButton text="Sala Sombra" isSelected={selectedOption === 'sala_2'} onSelect={() => handleSelect('sala_2')}/>
-              <TabButton text="Otros espacios" isSelected={selectedOption === 'otros_espacios'} onSelect={() => handleSelect('otros_espacios')}/>
+              <TabButton text="Sala Sol" isSelected={selectedOption === 'sala_1'} onSelect={() => handleSelect('sala_1')} />
+              <TabButton text="Sala Sombra" isSelected={selectedOption === 'sala_2'} onSelect={() => handleSelect('sala_2')} />
+              <TabButton text="Otros espacios" isSelected={selectedOption === 'otros_espacios'} onSelect={() => handleSelect('otros_espacios')} />
             </menu>
             {tabContent}
           </section>
         </div>
-        
+
         <div className="section" style={{ backgroundColor: "rgba(0, 78, 134)" }}>
           <div className="tarifas-container">
             <div className="tarifas-item">
-            <MonitorCheck size={48}  />
+              <MonitorCheck size={48} />
               <h3>Escritorio personalizado</h3>
             </div>
-          
-          
+
+
             <div className="tarifas-item tarifas-item__main">
-            <Handshake size={48} color={"rgba(110, 195, 255)"} />
+              <Handshake size={48} color={"rgba(110, 195, 255)"} />
               <h3>Planes a medida</h3>
             </div>
-            
-        
+
+
             <div className="tarifas-item">
-            <IdCard size={48}  />
+              <IdCard size={48} />
               <h3>Suscripción mensual</h3>
             </div>
-            
-          
+
+
             <div className="tarifas-item">
-            <ClockPlus size={48}  />
+              <ClockPlus size={48} />
               <h3>Reserva por horas</h3>
             </div>
-            
-          
+
+
             <div className="tarifas-item">
-            <Headset size={48}  />
+              <Headset size={48} />
               <h3>¿Necesitas ayuda?</h3>
             </div>
-            
-          
+
+
             <div className="tarifas-item">
-            <Presentation size={48}  />
+              <Presentation size={48} />
               <h3>Salas de reuniones</h3>
             </div>
           </div>
-          
+
         </div>
-        <div className="section " style={{ backgroundColor: "orange" }}>
-          <img src={fondo} alt="" />
+        <div className="section overlay-section">
+          <div className="image-overlay-container">
+            <img src={fondo} alt="Espacio coworking" className="background-img" />
+            <div className="overlay-text">
+              <h1>¿Quieres probar?</h1>
+              <h2>Registrate ahora y consigue<strong> 3 horas gratis</strong></h2>
+              <Button text="Registrar ahora" variant="important" onClick={handleNavigateRegistro}/>
+            </div>
+          </div>
         </div>
 
       </div>
