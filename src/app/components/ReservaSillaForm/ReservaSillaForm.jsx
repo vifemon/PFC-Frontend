@@ -1,3 +1,4 @@
+import { toast } from 'react-hot-toast';
 import { useState, useEffect } from "react"
 import InputField from "../InputField/InputField"
 import Button from "../Button/Button";
@@ -79,7 +80,7 @@ function ReservaSillaForm() {
 
             const idUsuario = sessionStorage.getItem('usuario_id')
             if (idUsuario === null) {
-                alert("hay que logearse o error")
+                toast.error('Primero debes iniciar sesión');
                 navigate("/login")
             }
 
@@ -113,7 +114,7 @@ function ReservaSillaForm() {
 
             const idUsuario = sessionStorage.getItem('usuario_id')
             if (idUsuario === null) {
-                alert("hay que logearse o error")
+                toast.error('Primero debes iniciar sesión');
                 navigate("/login")
             }
 

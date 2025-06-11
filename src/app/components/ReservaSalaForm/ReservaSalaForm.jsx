@@ -1,3 +1,4 @@
+import { toast } from 'react-hot-toast';
 import { useState } from "react"
 import Button from "../Button/Button"
 import InputField from "../InputField/InputField"
@@ -17,6 +18,11 @@ function ReservaSalaForm() {
     const [salaOcupada, setSalaOcupada] = useState(false)
     const [reservaRealizada, setReservaRealizada] = useState(false)
     const navigate = useNavigate();
+    const horas = [
+        "08:00", "09:00", "10:00", "11:00", "12:00",
+        "13:00", "14:00", "15:00", "16:00", "17:00",
+        "18:00", "19:00", "20:00", "21:00"
+    ];
 
     const validarReserva = () => {
         const erroresTemp = {}
@@ -56,7 +62,7 @@ function ReservaSalaForm() {
         const { id, value } = e.target;
         setForm({ ...form, [id]: value });
         setError((prev) => ({ ...prev, [id]: undefined }));
-      }
+    }
 
 
     const handleReserva = async () => {
@@ -68,7 +74,7 @@ function ReservaSalaForm() {
 
                 const idUsuario = sessionStorage.getItem('usuario_id')
                 if (idUsuario === null) {
-                    alert("hay que logearse o error")
+                    toast.error('Primero debes iniciar sesión');
                     navigate("/login")
 
                 }
@@ -96,14 +102,14 @@ function ReservaSalaForm() {
 
 
     return (
-        <div className= "form-container__inputs">
+        <div className="form-container__inputs">
             <label htmlFor="sala">Sala:</label>
             <select id="sala" onChange={handleChange} value={form.sala}>
                 <option value="">Selecciona sala</option>
-                <option value="1">Sala 1</option>
-                <option value="2">Sala 2</option>
+                <option value="1">Sala Sol</option>
+                <option value="2">Sala Sombra</option>
             </select>
-            {error.sala && <span className="error">{error.sala}</span>}
+            {error.sala && <span className="mensaje-error">{error.sala}</span>}
 
             <InputField
                 type="date"
@@ -116,37 +122,26 @@ function ReservaSalaForm() {
             <label htmlFor="horaInicio">Hora Inicio:</label>
             <select id="horaInicio" onChange={handleChange}>
                 <option value="">Selecciona hora inicio</option>
-                <option value="08:00">8:00</option>
-                <option value="09:00">9:00</option>
-                <option value="10:00">10:00</option>
-                <option value="11:00">11:00</option>
-                <option value="12:00">12:00</option>
-                <option value="13:00">13:00</option>
-                <option value="14:00">14:00</option>
-                <option value="15:00">15:00</option>
+                {horas.map(hora => (
+                    <option key={hora} value={hora}>
+                        {hora}
+                    </option>
+                ))}
             </select>
-            {error.horaInicio && <span className="error">{error.horaInicio}</span>}
+            {error.horaInicio && <span className="mensaje-error">{error.horaInicio}</span>}
 
-            {/* <InputField
-                type="time"
-                label="Hora Inicio:"
-                id="horaInicio"
-                step="3600"
-                onChange={handleChange}
-                error={error.horaInicio}
-            /> */}
+
             <label htmlFor="horaFin">Hora Fin:</label>
             <select id="horaFin" onChange={handleChange}>
                 <option value="">Selecciona hora final</option>
-                <option value="09:00">9:00</option>
-                <option value="10:00">10:00</option>
-                <option value="11:00">11:00</option>
-                <option value="12:00">12:00</option>
-                <option value="13:00">13:00</option>
-                <option value="14:00">14:00</option>
-                <option value="15:00">15:00</option>
+                {horas.map(hora => (
+                    <option key={hora} value={hora}>
+                        {hora}
+                    </option>
+                ))}
+                <option value="22:00">22:00</option>
             </select>
-            {error.horaFin && <span className="error">{error.horaFin}</span>}
+            {error.horaFin && <span className="mensaje-error">{error.horaFin}</span>}
 
             <Button
                 text="Reservar"

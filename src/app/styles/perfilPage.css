@@ -7,14 +7,23 @@
     margin: 20px 50px 20px;
     padding: 20px 50px 20px;
     margin-top: 5%;
-    padding-top: 5%; 
+    
     gap: 10vw;
 }
+
+.datos-container__edit{
+    background-color:white;
+    border-radius: 6px;
+    
+}
+
 
 .title-container{
     width: 100%;
     margin-top: 20px;
 }
+
+
 .title-container h1{
     margin-left: 10%;
     bottom: 0;
@@ -56,8 +65,9 @@
 
 .reservas-container__row{
     width: 100%;
-   
+   background-color: white;
     padding: 10px 20px;
+    border-radius: 6px;
 
 }
 
@@ -95,7 +105,7 @@ th{
     }
 
     .reserva-card {
-        background-color: transparent;
+        background-color: white;;
         border: 1px solid rgba(110, 195, 255);
         padding: 20px;
         border-radius: 12px;

@@ -1,4 +1,4 @@
-import Header from '../components/Header/Header'
+import { toast } from 'react-hot-toast';
 import Button from '../components/Button/Button';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -113,7 +113,7 @@ function MiPerfilPage() {
 
         const res = await editarDatos(datosUpdate);
         if (res.status === "success") {
-          alert("Datos actualizados correctamente")
+          toast.success('Datos actualizados correctamente');
         }
 
       }
@@ -144,7 +144,7 @@ function MiPerfilPage() {
         <div className="title-container">
           <h1>Información personal</h1>
 
-          <div className="datos-container">
+          <div className="datos-container datos-container__edit">
 
             <div className="form-container__inputs">
               <InputField
@@ -214,7 +214,7 @@ function MiPerfilPage() {
               <tr key={reserva.id} className="reservas-container__row">
                 <td>{reserva.fecha_format}</td>
                 {reserva.sala_id && (
-                  reserva.sala_id == 1 ? <td>Sala Azul</td> : <td>Sala Roja</td>
+                  reserva.sala_id == 1 ? <td>Sala Sol</td> : <td>Sala Sombra</td>
                 )}
                 {reserva.cantidad_sillas && (
                   <td>Sillas: {reserva.cantidad_sillas}</td>
@@ -236,7 +236,7 @@ function MiPerfilPage() {
   {usuarioLogeado.reservas.map((reserva) => (
     <div key={reserva.id} className="reserva-card">
       <p><strong>Fecha:</strong> {reserva.fecha_format}</p>
-      <p><strong>Reserva:</strong> {reserva.sala_id === 1 ? "Sala Azul" : "Sala Roja"}</p>
+      <p><strong>Reserva:</strong> {reserva.sala_id === 1 ? "Sala Sol" : "Sala Sombra"}</p>
       {reserva.cantidad_sillas && <p><strong>Sillas:</strong> {reserva.cantidad_sillas}</p>}
       <p><strong>Inicio:</strong> {reserva.hora_inicio_format}</p>
       <p><strong>Fin:</strong> {reserva.hora_fin_format}</p>

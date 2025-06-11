@@ -1,4 +1,4 @@
-/* Scroll y layout */
+
 body {
     margin: 0;
   }
@@ -24,7 +24,7 @@ body {
   .section img, video {
     width: 100vw;
     height: 100%;
-    object-fit: cover;;
+    object-fit: cover;
   }
   
   .video-wrapper {
@@ -42,16 +42,16 @@ body {
   
   .video-overlay {
     position: absolute;
-    top: 60%;
-    left: 25%;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
     color: white;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     font-size: 2rem;
     opacity: 0;
-    transition: opacity 1s ease, transform 3s ease;
+    transition: opacity 3s ease, transform 3s ease;
     pointer-events: none;
-    text-align: left;
+    text-align: center;
   }
   
   .video-overlay.visible {
@@ -63,5 +63,77 @@ body {
     pointer-events: auto;
     
   }
+
+
+
+  .tarifas-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+    gap: 2rem;
+    padding: 2rem;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    justify-items: center;
+    align-items: center;
+  }
+
+  .tarifas-item {
+    background-color: white;
+    color: black;
+    border-radius: 14px;
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease;
+    width: 70%;
+    height: 200px;
+  }
+
+  .tarifas-item__main{
+    background-color:rgba(34, 49, 60, 1);
+  }
+
+  .tarifas-item__main h3{
+    color: white;
+  }
   
+  .tarifas-item:hover {
+    transform: scale(1.05);
+  }
+
+
+  
+ 
+@media (max-width: 1024px) {
+  .tarifas-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+@media (max-width: 768px) {
+  .tarifas-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 2rem 1rem;
+  }
+
+  .tarifas-item {
+    flex: 0 0 80%;
+    scroll-snap-align: center;
+    max-width: none;
+    min-width: 80%;
+    height: 250px;
+    margin-right: 1rem;
+  }
+
+
+}
+
   

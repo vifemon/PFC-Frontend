@@ -4,9 +4,9 @@ import ReservaSillaForm from "../ReservaSillaForm/ReservaSillaForm"
 import "./toggleReserva.css"
 import InputField from "../InputField/InputField"
 
-function ToggleReserva() {
+function ToggleReserva({ tipo, setTipoReserva }) {
 
-  const [tipoReserva, setTipoReserva] = useState("sala")
+  
 
   const handleToggle = () => {
     setTipoReserva(prev => (prev === "sala" ? "silla" : "sala"))
@@ -14,16 +14,16 @@ function ToggleReserva() {
 
   return (
     <div className="switch-container">
-      <div>Cambia a {tipoReserva === "sala" ? "silla" : "sala"}</div>
+      
       <div>
         <label className="switch">
-          <InputField type="checkbox" onClick={handleToggle} />
+          <InputField type="checkbox" onClick={handleToggle} checked={tipo === "silla"} />
           <span className="slider round"></span>
         </label>
       </div>
       <div className="form-container">
-        <p>Reservando {tipoReserva}</p>
-        {tipoReserva === "sala" ? <ReservaSalaForm /> : <ReservaSillaForm />}
+        <h2>Reservando {tipo}</h2>
+        {tipo === "sala" ? <ReservaSalaForm /> : <ReservaSillaForm />}
       </div>
     </div>
 

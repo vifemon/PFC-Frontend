@@ -1,3 +1,4 @@
+import { toast } from 'react-hot-toast';
 import { useState, useEffect } from "react";
 import InputField from "../InputField/InputField";
 import Button from "../Button/Button";
@@ -53,13 +54,13 @@ function LoginForm() {
                     sessionStorage.setItem('usuario_id', res.user_id)
                     
                     if (res.user_id === 1){
-                        setTimeout(() => {
+                        
+                            toast.success('Bienvenido administrador');
                             navigate("/admin")
-                        }, 1000)
+                        
                     } else {
-                        setTimeout(() => {
+                            toast.success('Bienvenido ' + form.usuario);
                             navigate("/miperfil")
-                        }, 1000)
                     }
 
 
@@ -108,6 +109,7 @@ function LoginForm() {
                     <Button
                         text="Login"
                         onClick={handleSubmit}
+                        variant="important"
                     />
                     <Button
                     text="Crear cuenta"
@@ -117,7 +119,7 @@ function LoginForm() {
             )}
 
             {!loginExito && (
-                <div className="login-form__error"><h2>Login incorrecto</h2></div>)}
+                <div className="mensaje-error"><h2>Login incorrecto</h2></div>)}
         </div>
 
     );

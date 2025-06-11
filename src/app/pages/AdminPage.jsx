@@ -86,7 +86,7 @@ function HomePage() {
                 <td>{reserva.fecha_format}</td>
                 <td>{reserva.nombre_completo}</td>
                 {reserva.sala_id && (
-                  reserva.sala_id == 1 ? <td>Sala Azul</td> : <td>Sala Roja</td>
+                  reserva.sala_id == 1 ? <td>Sala Sol</td> : <td>Sala Sombra</td>
                 )}
                 {reserva.cantidad_sillas && (
                   <td>Sillas: {reserva.cantidad_sillas}</td>
@@ -107,7 +107,7 @@ function HomePage() {
               <div key={reserva.id} className="reserva-card">
                 <p><strong>Fecha:</strong> {reserva.fecha_format}</p>
                 <p><strong>{reserva.nombre_completo}</strong></p>
-                <p><strong>Reserva:</strong> {reserva.sala_id === 1 ? "Sala Azul" : "Sala Roja"}</p>
+                <p><strong>Reserva:</strong> {reserva.sala_id === 1 ? "Sala Sol" : "Sala Sombra"}</p>
                 {reserva.cantidad_sillas && <p><strong>Sillas:</strong> {reserva.cantidad_sillas}</p>}
                 <p><strong>Inicio:</strong> {reserva.hora_inicio_format}</p>
                 <p><strong>Fin:</strong> {reserva.hora_fin_format}</p>

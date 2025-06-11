@@ -1,3 +1,4 @@
+import {CircleUserRound} from 'lucide-react'
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './navbar.css';
@@ -62,20 +63,20 @@ const Navbar = ({ scrollContainerClass = '' }) => {
                 <div className={`bar ${menuOpen ? 'rotate2' : ''}`}></div>
             </button>
             <div className={`nav-links ${menuOpen ? 'show' : ''}`}>
-                <a href="#">Espacios</a>
-                <a href="#">Tarifas</a>
-                <a href="#">Contacto</a>
+                <Link to="/espacios">Espacios</Link>
+                <Link to="/tarifas">Tarifas</Link>
+                <Link to="/contacto">Contacto</Link>
                 <Link to="/reserva">Reserva</Link>
             </div>
             <div>
                 {isLogged ? (
                     isLogged === 'admin' ? ( 
-                    <Link to="/admin">Mi perfil</Link> 
+                    <Link to="/admin"><CircleUserRound size="38"/></Link> 
                 ) : (
-                    <Link to="/miperfil">Mi perfil</Link>
+                    <Link to="/miperfil"><CircleUserRound size="38"/></Link>
                 )
                 ) : (
-                    <Link to="/login">Mi perfil</Link>)}
+                    <Link to="/login"><CircleUserRound size="38"/></Link>)}
             </div>
         </nav>
     );
